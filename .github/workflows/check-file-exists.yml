@@ -1,0 +1,24 @@
+name: Check test-file.js exists
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  check-file-exists:
+    name: test-file.js exists
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify test-file.js exists
+        run: |
+          if [ -f "test-file.js" ]; then
+            echo "✅ test-file.js found."
+          else
+            echo "❌ test-file.js is missing from the repository root."
+            exit 1
+          fi
